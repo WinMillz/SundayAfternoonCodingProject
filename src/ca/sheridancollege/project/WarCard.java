@@ -36,7 +36,7 @@ public class WarCard extends Card {
     
     public int getValueOfRank() {
         return value.ordinal() + 2; 
-            // each value has index + 2
+            // each value's rank will be index + 2
             // for example, index 0 (TWO) will have rank of 2, 
             // index 12 (ACE) will have rank of 14
     }
@@ -56,7 +56,7 @@ public class WarCard extends Card {
         
         WarCard sample = new WarCard(cardValues[0], cardSuits[0]);
         
-        System.out.println(sample);
+        System.out.println(sample); // output: "TWO of CLUBS"
     }
     
 
