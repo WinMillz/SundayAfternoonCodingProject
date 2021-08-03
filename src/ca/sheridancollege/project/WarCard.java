@@ -102,23 +102,7 @@ public class WarCard extends Card {
 
     @Override
     public String toString() {
-        return warCard.name() +", rank of " + warCard.getValue();
+        return warCard.name();
     }
-    
-    
-    
-    // This main method is for testing WarCard object
-    // -> need to remove
-    public static void main(String[] args) {
-
-        WarCard card2 = new WarCard(2);
-        WarCard card51 = new WarCard(51);
-
-        System.out.println(card2); // output: "CLUBS_4, rank of 4"
-        System.out.println(card51); // output: "SPADES_ACE, rank of 14"
-        System.out.println(card2.getValue()); // 4
-        System.out.println(card51.getValue()); // 14
-    }
-    
 
 }
