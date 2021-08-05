@@ -5,6 +5,7 @@
  */
 package ca.sheridancollege.project;
 
+//import ca.sheridancollege.project.WarCard.Deck;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -19,12 +20,16 @@ import java.util.Collections;
 public class GroupOfCards {
 
     //The group of cards, stored in an ArrayList
-    private ArrayList<Card> cards;
+    private ArrayList<WarCard> cards;
     private int size;//the size of the grouping
 
-    public GroupOfCards(int size) {
-        this.size = size;
-        cards = new ArrayList<>();
+    
+    /**
+     * 
+     * @param size 
+     */
+    public GroupOfCards() {
+        cards = new ArrayList<WarCard>();
     }
   
     /**
@@ -32,7 +37,7 @@ public class GroupOfCards {
      *
      * @return the group of cards.
      */
-    public ArrayList<Card> getCards() {
+    public ArrayList<WarCard> getCards() {
         return cards;
     }
 
@@ -44,7 +49,7 @@ public class GroupOfCards {
      * @return the size of the group of cards
      */
     public int getSize() {
-        return size;
+        return cards == null ? 0 : getCards().size();
     }
 
     /**
@@ -53,23 +58,5 @@ public class GroupOfCards {
     public void setSize(int size) {
         this.size = size;
     }
-
-    /**
-     * This method adds a card to a group of cards
-     * @param card 
-     */
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-    
-    /**
-     * This method removes the card at index i and returns it
-     * @param i
-     * @return the card that was removed from the group of cards
-     */
-    public Card removeCard(int i) {
-        Card card = cards.remove(i);
-        return card;
-    }
-
+   
 }//end class
