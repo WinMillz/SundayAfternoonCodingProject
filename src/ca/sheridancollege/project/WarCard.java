@@ -33,12 +33,12 @@ public class WarCard extends Card {
 
     /**
      * Override the toString method and return the name of the card.
-     * 
+     *
      * @return
      */
     @Override
     public String toString() {
         return warCard.getName();
     }
-
+ 
 }

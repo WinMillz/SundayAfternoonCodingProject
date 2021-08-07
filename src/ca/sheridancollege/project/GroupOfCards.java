@@ -26,7 +26,6 @@ public class GroupOfCards {
     
     /**
      * 
-     * @param size 
      */
     public GroupOfCards() {
         cards = new ArrayList<WarCard>();
