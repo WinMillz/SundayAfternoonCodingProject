@@ -107,6 +107,15 @@ public class WarCardGame extends Game {
             newGame = input.nextLine();
             if (newGame.equalsIgnoreCase("Y")) {
                 playNewGame = true;
+                p1.setForfeit(false);
+                p2.setForfeit(false);
+                
+                p1.setRoundWinCount(0);
+                p2.setRoundWinCount(0);
+                
+            } else if (newGame.equalsIgnoreCase("E")) {
+                playNewGame = false;
+                System.out.println("Thanks for playing!");
             }
         } while (!newGame.equalsIgnoreCase("Y") && !newGame.equalsIgnoreCase("E"));
     }
@@ -123,7 +132,7 @@ public class WarCardGame extends Game {
             }
         }
     }
-
+    
     public void playTurn() {
         String playerInput = "";
         for (Player current : getPlayers()) {
@@ -142,7 +151,8 @@ public class WarCardGame extends Game {
                     break;
                 } else if (playerInput.equals("t")) {
                     ((WarPlayer) current).setForfeit(true);
-                    System.out.println(((WarPlayer) current) + " forfeits!");
+                    System.out.println(((WarPlayer) current).getName() + 
+                            " forfeits!");
                     break;
                 } else {
                     System.out.println("Please enter valid input command");
