@@ -134,7 +134,7 @@ public class WarCardGame extends Game {
         
         //clear win pile for each player and distribute cards
         p1.getWinList().getCards().clear();
-        p1.getWinList().getCards().clear();        
+        p2.getWinList().getCards().clear();        
         distributeCards(p1, p2);
         
         //play turns until hand of players reaches 0 or player forfeits
@@ -156,29 +156,32 @@ public class WarCardGame extends Game {
         String playerInput = "";
         
         //prompt player to select option
-        for (Player current : getPlayers()) {
+        for (int i = 0; i < getPlayers().size(); i++) {
+            if (p1.isForfeit() || p2.isForfeit())
+                break;
             while (true) {
-                System.out.println("\n" +current.getName() + "'s turn");
+                System.out.println("\n" + getPlayers().get(i).getName() + "'s turn");
                 showInstructions();
                 playerInput = input.nextLine();
                 if (playerInput.equals("c")) {
-                    System.out.println(current.getName() + " currently has "
-                            + ((WarPlayer) current).getInHand().getSize()
+                    System.out.println(getPlayers().get(i).getName() + " currently has "
+                            + ((WarPlayer)getPlayers().get(i)).getInHand().getSize()
                             + " cards left and "
-                            + ((WarPlayer) current).getWinList().getSize()
+                            + ((WarPlayer)getPlayers().get(i)).getWinList().getSize()
                             + " cards in their Win Pile");
                 } else if (playerInput.equals("p")) {
-                    ((WarPlayer) current).play();
+                    ((WarPlayer)getPlayers().get(i)).play();
                     break;
                 } else if (playerInput.equals("t")) {
-                    ((WarPlayer) current).setForfeit(true);
-                    System.out.println(((WarPlayer) current).getName() + 
+                    ((WarPlayer)getPlayers().get(i)).setForfeit(true);
+                    System.out.println(((WarPlayer)getPlayers().get(i)).getName() + 
                             " forfeits!");
                     break;
                 } else {
                     System.out.println("Please enter valid input command");
                 }
-            } 
+        }
+             
         }
         
         //assess winner of turn
