@@ -121,6 +121,11 @@ public class WarCardGame extends Game {
     }
 
     public void playRound() {
+        
+        //clear win pile for each player
+        p1.getWinList().getCards().clear();
+        p1.getWinList().getCards().clear();
+        
         distributeCards(p1, p2);
         while (p1.getInHand().getSize() > 0 && p2.getInHand().getSize() > 0) {
 
@@ -186,7 +191,7 @@ public class WarCardGame extends Game {
      * @param player2
      */
     public void distributeCards(WarPlayer player1, WarPlayer player2) {
-
+        
         // Create group of cards from enum Deck
         GroupOfCards initialDeck = new GroupOfCards();
         for (int i = 0; i < Deck.values().length; i++) {
