@@ -93,6 +93,7 @@ public class WarCardGame extends Game {
                 p1.setRoundWinCount(3);
             } else {
                 playRound();
+                incrementRoundWon();
             }
 
         }
@@ -115,8 +116,7 @@ public class WarCardGame extends Game {
         while (p1.getInHand().getSize() > 0 && p2.getInHand().getSize() > 0) {
 
             if (!p1.isForfeit() && !p2.isForfeit()) {
-                playTurn();
-                incrementRoundWon();
+                playTurn();                
             } else {
                 p1.getInHand().getCards().clear();
                 p2.getInHand().getCards().clear();
@@ -128,7 +128,7 @@ public class WarCardGame extends Game {
         String playerInput = "";
         for (Player current : getPlayers()) {
             do {
-                System.out.println(current.getName() + "'s turn");
+                System.out.println("\n" +current.getName() + "'s turn");
                 showInstructions();
                 playerInput = input.nextLine();
                 if (playerInput.equals("c")) {
@@ -136,7 +136,7 @@ public class WarCardGame extends Game {
                             + ((WarPlayer) current).getInHand().getSize()
                             + " cards left and "
                             + ((WarPlayer) current).getWinList().getSize()
-                            + "cards in their Win Pile");
+                            + " cards in their Win Pile");
                 } else if (playerInput.equals("p")) {
                     ((WarPlayer) current).play();
                     break;
