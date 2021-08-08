@@ -157,7 +157,7 @@ public class WarCardGame extends Game {
         
         //prompt player to select option
         for (Player current : getPlayers()) {
-            do {
+            while (true) {
                 System.out.println("\n" +current.getName() + "'s turn");
                 showInstructions();
                 playerInput = input.nextLine();
@@ -178,7 +178,7 @@ public class WarCardGame extends Game {
                 } else {
                     System.out.println("Please enter valid input command");
                 }
-            } while (true);
+            } 
         }
         
         //assess winner of turn
