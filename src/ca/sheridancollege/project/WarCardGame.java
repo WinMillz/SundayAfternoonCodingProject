@@ -40,7 +40,6 @@ public class WarCardGame extends Game {
         WarCardGame warGame = new WarCardGame("War by Sunday Afternoon",
                 new WarPlayer(p1Name), new WarPlayer(p2Name));
 
-        warGame.distributeCards(warGame.p1, warGame.p2);
         warGame.play();
 
 //        // **REMOVE** Checking that cards were distributed
@@ -181,7 +180,8 @@ public class WarCardGame extends Game {
         Scanner sc = new Scanner(System.in);
         System.out.println("Welcome to War");
         String playerInput = "";
-
+        while (p1.getRoundWinCount()< 3 && p1.getRoundWinCount() < 3) {
+        distributeCards(p1,p2);
         while (p1.getInHand().getSize() > 0 && p2.getInHand().getSize() > 0) {
             for (Player current : getPlayers()) {
                 do {
@@ -196,6 +196,7 @@ public class WarCardGame extends Game {
                         ((WarPlayer) current).play();
                         break;
                     } else if (playerInput.equals("t")) {
+                        System.out.println("Insert code to return to registration");
                         break;
                     } else {
                         System.out.println("Please enter valid input command");
@@ -223,7 +224,7 @@ public class WarCardGame extends Game {
                 incrementRoundWon();
             }
         }
-
+        }
     }
 
     @Override
@@ -233,13 +234,13 @@ public class WarCardGame extends Game {
     
     public void incrementRoundWon() {
         if (p1.getWinList().getSize() > p2.getWinList().getSize()) {
-            p1.setRoundCount(p1.getRoundCount() + 1);
-            System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundCount(),
-            p2.getName(), p2.getRoundCount());
+            p1.setRoundCount(p1.getRoundWinCount() + 1);
+            System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundWinCount(),
+            p2.getName(), p2.getRoundWinCount());
         } else if (p1.getWinList().getSize() < p2.getWinList().getSize()) {
-            p2.setRoundCount(p2.getRoundCount() + 1);
-            System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundCount(),
-            p2.getName(), p2.getRoundCount());
+            p2.setRoundCount(p2.getRoundWinCount() + 1);
+            System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundWinCount(),
+            p2.getName(), p2.getRoundWinCount());
         } else {
             System.out.println("This round is tie.");
         }

@@ -13,7 +13,7 @@ public class WarPlayer extends Player {
     private GroupOfCards winList;
     private GroupOfCards activeDeck;
     
-    public int roundCount;
+    public int roundWinCount;
 
     public WarPlayer(String name) {
         super(name);
@@ -46,12 +46,12 @@ public class WarPlayer extends Player {
         this.activeDeck = activeDeck;
     }
 
-    public int getRoundCount() {
-        return roundCount;
+    public int getRoundWinCount() {
+        return roundWinCount;
     }
 
     public void setRoundCount(int roundCount) {
-        this.roundCount = roundCount;
+        this.roundWinCount = roundCount;
     }
     
     
@@ -79,7 +79,8 @@ public class WarPlayer extends Player {
             activeDeck.getCards().add(inHand.getCards().remove(0));
             activeDeck.getCards().add(inHand.getCards().remove(0));
         } else {
-            // declare winner() method? 
+            // declare winner() method?
+            
         }
     }
 
