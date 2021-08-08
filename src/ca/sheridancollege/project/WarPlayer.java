@@ -13,8 +13,7 @@ public class WarPlayer extends Player {
     private GroupOfCards winList;
     private GroupOfCards activeDeck;
     
-    public int roundCountP1;
-    public int roundCountP2;
+    public int roundCount;
 
     public WarPlayer(String name) {
         super(name);
@@ -46,6 +45,14 @@ public class WarPlayer extends Player {
     public void setActiveDeck(GroupOfCards activeDeck) {
         this.activeDeck = activeDeck;
     }
+
+    public int getRoundCount() {
+        return roundCount;
+    }
+
+    public void setRoundCount(int roundCount) {
+        this.roundCount = roundCount;
+    }
     
     
 
@@ -59,7 +66,7 @@ public class WarPlayer extends Player {
         }
 
         System.out.print(getName() + " dealt " + activeDeck.getCards().get(0));
-        System.out.println(" [rest of cards: " + inHand.getSize() + "]");
+        System.out.println(" [cards remaining: " + inHand.getSize() + "]");
 
     }
 
@@ -83,20 +90,20 @@ public class WarPlayer extends Player {
 
     }
 
-// when a player's hand is empty, invoke this method.
-    public void incrementRoundWon(WarPlayer player1, WarPlayer player2) {
-        if (player1.winList.getSize() > player2.winList.getSize()) {
-            roundCountP1++;
-            System.out.printf("%s: %d vs. %s: %d", player1.getName(), roundCountP1,
-            player2.getName(), roundCountP2);
-        } else if (player1.winList.getSize() < player2.winList.getSize()) {
-            roundCountP2++;
-            System.out.printf("%s: %d vs. %s: %d", player1.getName(), roundCountP1,
-            player2.getName(), roundCountP2);
-        } else {
-            System.out.println("This round is tie.");
-        }
-    }
+//// when a player's hand is empty, invoke this method.
+//    public void incrementRoundWon(WarPlayer player1, WarPlayer player2) {
+//        if (player1.winList.getSize() > player2.winList.getSize()) {
+//            roundCountP1++;
+//            System.out.printf("%s: %d vs. %s: %d", player1.getName(), roundCountP1,
+//            player2.getName(), roundCountP2);
+//        } else if (player1.winList.getSize() < player2.winList.getSize()) {
+//            roundCountP2++;
+//            System.out.printf("%s: %d vs. %s: %d", player1.getName(), roundCountP1,
+//            player2.getName(), roundCountP2);
+//        } else {
+//            System.out.println("This round is tie.");
+//        }
+//    }
 
     // This main method is for testing WarPlayer object
     // -> NEED TO REMOVE
