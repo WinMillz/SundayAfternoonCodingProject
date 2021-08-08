@@ -62,7 +62,10 @@ public class WarCardGame extends Game {
         getPlayers().add(p1);
         getPlayers().add(p2);
     }
-
+    
+    /**
+     * This method models 1 full game of play
+     */
     @Override
     public void play() {
 
@@ -82,10 +85,12 @@ public class WarCardGame extends Game {
                         + "re-enter.");
             }
         } while (p1Name.equalsIgnoreCase(p2Name));
-
+        
+        //register player names
         p1.setName(p1Name);
         p2.setName(p2Name);
-
+        
+        //continue to play rounds until end game condition is reached
         while (p1.getRoundWinCount() < 3 && p2.getRoundWinCount() < 3) {
             if (p1.isForfeit()) {
                 p2.setRoundWinCount(3);
@@ -97,9 +102,11 @@ public class WarCardGame extends Game {
             }
 
         }
-
+        
+        //declare winner of most recent game
         declareWinner();
-
+        
+        //prompt player for another game and reset values
         String newGame;
         do {
             System.out.println("Press \"Y\" to play a new game, Press \"E\" to "
@@ -119,14 +126,18 @@ public class WarCardGame extends Game {
             }
         } while (!newGame.equalsIgnoreCase("Y") && !newGame.equalsIgnoreCase("E"));
     }
-
+    
+    /**
+     * This method 1 round of play
+     */
     public void playRound() {
         
-        //clear win pile for each player
+        //clear win pile for each player and distribute cards
         p1.getWinList().getCards().clear();
-        p1.getWinList().getCards().clear();
-        
+        p1.getWinList().getCards().clear();        
         distributeCards(p1, p2);
+        
+        //play turns until hand of players reaches 0 or player forfeits
         while (p1.getInHand().getSize() > 0 && p2.getInHand().getSize() > 0) {
 
             if (!p1.isForfeit() && !p2.isForfeit()) {
@@ -138,8 +149,13 @@ public class WarCardGame extends Game {
         }
     }
     
+    /**
+     * This method models one turn of play
+     */
     public void playTurn() {
         String playerInput = "";
+        
+        //prompt player to select option
         for (Player current : getPlayers()) {
             do {
                 System.out.println("\n" +current.getName() + "'s turn");
@@ -164,7 +180,8 @@ public class WarCardGame extends Game {
                 }
             } while (true);
         }
-
+        
+        //assess winner of turn
         int compareCard;
         boolean shouldPlayWar = false;
         if (!p1.isForfeit() && !p2.isForfeit()) {
@@ -281,7 +298,10 @@ public class WarCardGame extends Game {
         }
 
     }
-
+    
+    /**
+     * This method determines the winner based on rounds won
+     */
     @Override
     public void declareWinner() {
         if (p1.getRoundWinCount() > p2.getRoundWinCount()) {
@@ -290,7 +310,11 @@ public class WarCardGame extends Game {
             System.out.println(p2.getName() + " Wins the Game!!");
         }
     }
-
+    
+    /**
+     * This method determines which player has won the most recent round and
+     * increments the RoundWinCount datamember for the WarPlayer
+     */
     public void incrementRoundWon() {
 
         if (!p1.isForfeit() && !p2.isForfeit()) {
@@ -307,7 +331,10 @@ public class WarCardGame extends Game {
             }
         }
     }
-
+    
+    /**
+     * This method displays the options available to the player
+     */
     public void showInstructions() {
         System.out.println("Type \"c\" to check how many cards you have left\n"
                 + "Type \"p\" to play your next card\n"
