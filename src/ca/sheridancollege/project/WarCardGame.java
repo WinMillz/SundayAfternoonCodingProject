@@ -13,34 +13,20 @@ public class WarCardGame extends Game {
 
     private WarPlayer p1;
     private WarPlayer p2;
+    private boolean playNewGame = false;
+    private Scanner input = new Scanner(System.in);
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        Scanner input = new Scanner(System.in);
-
-        //prompt players for names
-        String p1Name = "Player 1";
-        String p2Name = "Player 2";
-        do {
-            System.out.print("Enter Name for Player 1: ");
-            p1Name = input.nextLine();
-            System.out.print("Enter name for Player 2: ");
-            p2Name = input.nextLine();
-
-            if (p1Name.equalsIgnoreCase(p2Name)) {
-                System.out.println("Players must have unique names, please "
-                        + "re-enter.");
-            }
-        } while (p1Name.equalsIgnoreCase(p2Name));
-
-        // Create new Players
+        // Create instance of WarGame
         WarCardGame warGame = new WarCardGame("War by Sunday Afternoon",
-                new WarPlayer(p1Name), new WarPlayer(p2Name));
-
-        warGame.play();
+                new WarPlayer("Player 1"), new WarPlayer("Player 2"));
+        do {
+            warGame.play();
+        } while (warGame.getPlayNewGame());
 
 //        // **REMOVE** Checking that cards were distributed
 //        System.out.println("Player 1: " + player1.getName() + ", # of cards inHand : "
@@ -75,6 +61,112 @@ public class WarCardGame extends Game {
         this.p2 = p2;
         getPlayers().add(p1);
         getPlayers().add(p2);
+    }
+
+    @Override
+    public void play() {
+
+        System.out.println("Welcome to War");
+
+        //prompt players for names
+        String p1Name = "Player 1";
+        String p2Name = "Player 2";
+        do {
+            System.out.print("Enter Name for Player 1: ");
+            p1Name = input.nextLine();
+            System.out.print("Enter name for Player 2: ");
+            p2Name = input.nextLine();
+
+            if (p1Name.equalsIgnoreCase(p2Name)) {
+                System.out.println("Players must have unique names, please "
+                        + "re-enter.");
+            }
+        } while (p1Name.equalsIgnoreCase(p2Name));
+
+        p1.setName(p1Name);
+        p2.setName(p2Name);
+
+        while (p1.getRoundWinCount() < 3 && p2.getRoundWinCount() < 3) {
+            if (p1.isForfeit()) {
+                p2.setRoundWinCount(3);
+            } else if (p2.isForfeit()) {
+                p1.setRoundWinCount(3);
+            } else {
+                playRound();
+            }
+
+        }
+
+        declareWinner();
+
+        String newGame;
+        do {
+            System.out.println("Press \"Y\" to play a new game, Press \"E\" to "
+                    + "exit:");
+            newGame = input.nextLine();
+            if (newGame.equalsIgnoreCase("Y")) {
+                playNewGame = true;
+            }
+        } while (!newGame.equalsIgnoreCase("Y") && !newGame.equalsIgnoreCase("E"));
+    }
+
+    public void playRound() {
+        distributeCards(p1, p2);
+        while (p1.getInHand().getSize() > 0 && p2.getInHand().getSize() > 0) {
+
+            if (!p1.isForfeit() && !p2.isForfeit()) {
+                playTurn();
+                incrementRoundWon();
+            } else {
+                p1.getInHand().getCards().clear();
+                p2.getInHand().getCards().clear();
+            }
+        }
+    }
+
+    public void playTurn() {
+        String playerInput = "";
+        for (Player current : getPlayers()) {
+            do {
+                System.out.println(current.getName() + "'s turn");
+                showInstructions();
+                playerInput = input.nextLine();
+                if (playerInput.equals("c")) {
+                    System.out.println(current.getName() + " currently has "
+                            + ((WarPlayer) current).getInHand().getSize()
+                            + " cards left and "
+                            + ((WarPlayer) current).getWinList().getSize()
+                            + "cards in their Win Pile");
+                } else if (playerInput.equals("p")) {
+                    ((WarPlayer) current).play();
+                    break;
+                } else if (playerInput.equals("t")) {
+                    ((WarPlayer) current).setForfeit(true);
+                    System.out.println(((WarPlayer) current) + " forfeits!");
+                    break;
+                } else {
+                    System.out.println("Please enter valid input command");
+                }
+            } while (true);
+        }
+
+        int compareCard;
+        boolean shouldPlayWar = false;
+        if (!p1.isForfeit() && !p2.isForfeit()) {
+            do {
+                compareCard = compareCards(p1, p2);
+                shouldPlayWar = determinePlayWar(compareCard);
+                if (shouldPlayWar) {
+                    System.out.println("It's War!!");
+                    p1.playWar();
+                    p2.playWar();
+                } else if (compareCard == 1) {
+                    System.out.println(p1.getName() + " wins the turn!");
+                } else {
+                    System.out.println(p2.getName() + " wins the turn!");
+                }
+            } while (shouldPlayWar);
+        }
     }
 
     /**
@@ -176,73 +268,28 @@ public class WarCardGame extends Game {
     }
 
     @Override
-    public void play() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to War");
-        String playerInput = "";
-        while (p1.getRoundWinCount()< 3 && p1.getRoundWinCount() < 3) {
-        distributeCards(p1,p2);
-        while (p1.getInHand().getSize() > 0 && p2.getInHand().getSize() > 0) {
-            for (Player current : getPlayers()) {
-                do {
-                    System.out.println(current.getName() + "'s turn");
-                    showInstructions();
-                    playerInput = sc.nextLine();
-                    if (playerInput.equals("c")) {
-                        System.out.println(current.getName() + " currently has "
-                                + ((WarPlayer) current).getInHand().getSize()
-                                + " cards left");
-                    } else if (playerInput.equals("p")) {
-                        ((WarPlayer) current).play();
-                        break;
-                    } else if (playerInput.equals("t")) {
-                        System.out.println("Insert code to return to registration");
-                        break;
-                    } else {
-                        System.out.println("Please enter valid input command");
-                    }
-                } while (true);
-            }
-
-            int compareCard = -1;
-            boolean shouldPlayWar = false;
-
-            do {
-                compareCard = compareCards(p1, p2);
-                shouldPlayWar = determinePlayWar(compareCard);
-                if (shouldPlayWar) {
-                    System.out.println("It's War!!");
-                    p1.playWar();
-                    p2.playWar();
-                } else if (compareCard == 1) {
-                    System.out.println(p1.getName() + " wins the turn!");
-                } else {
-                    System.out.println(p2.getName() + " wins the turn!");
-                }
-            } while (shouldPlayWar);
-            if (p1.getInHand().getSize() == 0) {
-                incrementRoundWon();
-            }
-        }
-        }
-    }
-
-    @Override
     public void declareWinner() {
-
+        if (p1.getRoundWinCount() > p2.getRoundWinCount()) {
+            System.out.println(p1.getName() + " Wins the Game!!");
+        } else if (p2.getRoundWinCount() > p1.getRoundWinCount()) {
+            System.out.println(p2.getName() + " Wins the Game!!");
+        }
     }
-    
+
     public void incrementRoundWon() {
-        if (p1.getWinList().getSize() > p2.getWinList().getSize()) {
-            p1.setRoundCount(p1.getRoundWinCount() + 1);
-            System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundWinCount(),
-            p2.getName(), p2.getRoundWinCount());
-        } else if (p1.getWinList().getSize() < p2.getWinList().getSize()) {
-            p2.setRoundCount(p2.getRoundWinCount() + 1);
-            System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundWinCount(),
-            p2.getName(), p2.getRoundWinCount());
-        } else {
-            System.out.println("This round is tie.");
+
+        if (!p1.isForfeit() && !p2.isForfeit()) {
+            if (p1.getWinList().getSize() > p2.getWinList().getSize()) {
+                p1.setRoundWinCount(p1.getRoundWinCount() + 1);
+                System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundWinCount(),
+                        p2.getName(), p2.getRoundWinCount());
+            } else if (p1.getWinList().getSize() < p2.getWinList().getSize()) {
+                p2.setRoundWinCount(p2.getRoundWinCount() + 1);
+                System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundWinCount(),
+                        p2.getName(), p2.getRoundWinCount());
+            } else {
+                System.out.println("This round is tie.");
+            }
         }
     }
 
@@ -251,4 +298,13 @@ public class WarCardGame extends Game {
                 + "Type \"p\" to play your next card\n"
                 + "Type \"t\" to forfeit the game:");
     }
+
+    public boolean getPlayNewGame() {
+        return playNewGame;
+    }
+
+    public void setPlayNewGame(boolean playNewGame) {
+        this.playNewGame = playNewGame;
+    }
+
 }

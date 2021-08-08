@@ -12,8 +12,8 @@ public class WarPlayer extends Player {
     private GroupOfCards inHand;
     private GroupOfCards winList;
     private GroupOfCards activeDeck;
-    
     public int roundWinCount;
+    private boolean forfeit = false;
 
     public WarPlayer(String name) {
         super(name);
@@ -50,8 +50,16 @@ public class WarPlayer extends Player {
         return roundWinCount;
     }
 
-    public void setRoundCount(int roundCount) {
+    public void setRoundWinCount(int roundCount) {
         this.roundWinCount = roundCount;
+    }
+
+    public boolean isForfeit() {
+        return forfeit;
+    }
+
+    public void setForfeit(boolean forfeit) {
+        this.forfeit = forfeit;
     }
     
     
