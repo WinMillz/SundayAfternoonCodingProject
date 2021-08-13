@@ -69,7 +69,7 @@ public class WarCardGame extends Game {
     @Override
     public void play() {
 
-        System.out.println("Welcome to War");
+        WarAsciiArt.displayGameStart();
 
         //prompt players for names
         String p1Name = "Player 1";
@@ -122,7 +122,7 @@ public class WarCardGame extends Game {
                 
             } else if (newGame.equalsIgnoreCase("E")) {
                 playNewGame = false;
-                System.out.println("Thanks for playing!");
+                WarAsciiArt.displayGameEnd();
             }
         } while (!newGame.equalsIgnoreCase("Y") && !newGame.equalsIgnoreCase("E"));
     }
@@ -192,7 +192,7 @@ public class WarCardGame extends Game {
                 compareCard = compareCards(p1, p2);
                 shouldPlayWar = determinePlayWar(compareCard);
                 if (shouldPlayWar) {
-                    System.out.println("It's War!!");
+                    WarAsciiArt.displayWar();
                     p1.playWar();
                     p2.playWar();
                 } else if (compareCard == 1) {
