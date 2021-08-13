@@ -3,7 +3,10 @@ package ca.sheridancollege.project;
 /**
  * This class contains methods that print ASCII art.
  * 
- * @author Juyoung Jung
+ * @author Jinyoung (Kayla) Jeon August 2021
+ * @author Juyoung (Jenny) Jung August 2021
+ * @author Tamara Dang August 2021
+ * @author Winston Martinez August 2021
  */
 public class WarAsciiArt {
     
