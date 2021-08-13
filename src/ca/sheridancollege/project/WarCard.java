@@ -3,8 +3,12 @@ package ca.sheridancollege.project;
 import java.util.ArrayList;
 
 /**
+ * This class models WarCard that contains Deck of 52 cards.
  *
- * @author Jinyoung Jeon, Juyoung Jung, Tamara Dang, Winston Martinez
+ * @author Jinyoung (Kayla) Jeon August 2021
+ * @author Juyoung (Jenny) Jung August 2021
+ * @author Tamara Dang August 2021
+ * @author Winston Martinez August 2021
  */
 public class WarCard extends Card {
 
