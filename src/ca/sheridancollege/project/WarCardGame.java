@@ -15,7 +15,6 @@ public class WarCardGame extends Game {
     private WarPlayer p2;
     private boolean playNewGame = false;
     private Scanner input = new Scanner(System.in);
-    private WarAsciiArt art = new WarAsciiArt();
 
     /**
      * @param args the command line arguments
@@ -46,7 +45,7 @@ public class WarCardGame extends Game {
     public void play() {
 
         //System.out.println("Welcome to War");
-        art.displayGameStart();
+        WarAsciiArt.displayGameStart();
 
         //prompt players for names
         String p1Name = "Player 1";
@@ -169,7 +168,7 @@ public class WarCardGame extends Game {
                 compareCard = compareCards(p1, p2);
                 shouldPlayWar = determinePlayWar(compareCard);
                 if (shouldPlayWar) {
-                    art.displayWar();
+                    WarAsciiArt.displayWar();
                     //System.out.println("\nIt's War!!");
                     p1.playWar();
                     p2.playWar();
