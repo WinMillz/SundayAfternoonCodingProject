@@ -47,8 +47,8 @@ public class WarCardGame extends Game {
         WarAsciiArt.displayGameStart();
 
         System.out.println("Welcome to War. Two players are required.\n"
-                + "There will be five total rounds.\nFirst player to get three wins "
-                + "will be crowned as the CHAMPION!");
+                + "There will be five total rounds.\nFirst player to get three"
+                + "wins will be crowned as the CHAMPION!");
 
         //prompt players for names
         String p1Name = "Player 1";
@@ -103,9 +103,10 @@ public class WarCardGame extends Game {
 
             } else if (newGame.equalsIgnoreCase("E")) {
                 playNewGame = false;
-                System.out.println("Thanks for playing!");
+                WarAsciiArt.displayGameEnd();
             }
-        } while (!newGame.equalsIgnoreCase("Y") && !newGame.equalsIgnoreCase("E"));
+        } while (!newGame.equalsIgnoreCase("Y") 
+                 && !newGame.equalsIgnoreCase("E"));
     }
 
     /**
@@ -141,22 +142,26 @@ public class WarCardGame extends Game {
             if (p1.isForfeit() || p2.isForfeit())
                 break;
             while (true) {
-                System.out.println("\n" + getPlayers().get(i).getName() + "'s turn");
+                System.out.println("\n" + getPlayers().get(i).getName() 
+                                   + "'s turn");
                 showInstructions();
                 playerInput = input.nextLine();
                 if (playerInput.equals("c")) {
-                    System.out.println(getPlayers().get(i).getName() + " currently has "
-                            + ((WarPlayer)getPlayers().get(i)).getInHand().getSize()
+                      System.out.println(getPlayers().get(i).getName() 
+                            + " currently has " 
+                            + ((WarPlayer)getPlayers().get(i))
+                                    .getInHand().getSize()
                             + " cards left and "
-                            + ((WarPlayer)getPlayers().get(i)).getWinList().getSize()
+                            + ((WarPlayer)getPlayers().get(i))
+                                    .getWinList().getSize()
                             + " cards in their Win Pile");
                 } else if (playerInput.equals("p")) {
                     ((WarPlayer)getPlayers().get(i)).play();
                     break;
                 } else if (playerInput.equals("t")) {
                     ((WarPlayer)getPlayers().get(i)).setForfeit(true);
-                    System.out.println(((WarPlayer)getPlayers().get(i)).getName() + 
-                            " forfeits!");
+                     System.out.println(((WarPlayer)getPlayers().get(i))
+                            .getName() + " forfeits!");
                     break;
                 } else {
                     System.out.println("Please enter valid input command");
@@ -306,11 +311,13 @@ public class WarCardGame extends Game {
         if (!p1.isForfeit() && !p2.isForfeit()) {
             if (p1.getWinList().getSize() > p2.getWinList().getSize()) {
                 p1.setRoundWinCount(p1.getRoundWinCount() + 1);
-                System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundWinCount(),
+                System.out.printf("%s: %d vs. %s: %d", p1.getName(), 
+                        p1.getRoundWinCount(),
                         p2.getName(), p2.getRoundWinCount());
             } else if (p1.getWinList().getSize() < p2.getWinList().getSize()) {
                 p2.setRoundWinCount(p2.getRoundWinCount() + 1);
-                System.out.printf("%s: %d vs. %s: %d", p1.getName(), p1.getRoundWinCount(),
+                System.out.printf("%s: %d vs. %s: %d", p1.getName(), 
+                        p1.getRoundWinCount(),
                         p2.getName(), p2.getRoundWinCount());
             } else {
                 System.out.println("This round is tie.");
