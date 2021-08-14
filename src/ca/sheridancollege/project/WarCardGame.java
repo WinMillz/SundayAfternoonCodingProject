@@ -66,10 +66,12 @@ public class WarCardGame extends Game {
         } while (p1Name.equalsIgnoreCase(p2Name));
 
         //register player names
-        if (!p1Name.equals("")) 
+        if (!p1Name.equals("")) {
             p1.setName(p1Name);
-        if (!p2Name.equals("")) 
+        }
+        if (!p2Name.equals("")) {
             p2.setName(p2Name);
+        }
 
         //continue to play rounds until end game condition is reached
         while (p1.getRoundWinCount() < 3 && p2.getRoundWinCount() < 3) {
@@ -191,10 +193,12 @@ public class WarCardGame extends Game {
                 } else {
                     System.out.println(p2.getName() + " wins the turn!");
                 }
-                System.out.println("[" + p1.getName() + " cards won: "
-                        + p1.getWinList().getSize() + "][ " + p2.getName()
-                        + " cards won: " + p2.getWinList().getSize() + "]");
+
             } while (shouldPlayWar);
+
+            System.out.println("[" + p1.getName() + " has won "
+                    + p1.getWinList().getSize() + " cards] [" + p2.getName()
+                    + " has won " + p2.getWinList().getSize() + " cards]");
         }
     }
 
@@ -287,11 +291,15 @@ public class WarCardGame extends Game {
      */
     public boolean determinePlayWar(int compareCard) {
 
-        switch (compareCard) {
-            case 0:
-                return true;
-            default:
-                return false;
+        if (p1.getInHand().getSize() > 0) {
+            switch (compareCard) {
+                case 0:
+                    return true;
+                default:
+                    return false;
+            }
+        } else {
+            return false;
         }
 
     }
@@ -302,9 +310,9 @@ public class WarCardGame extends Game {
     @Override
     public void declareWinner() {
         if (p1.getRoundWinCount() > p2.getRoundWinCount()) {
-            System.out.println(p1.getName() + " Wins the Game!!");
+            System.out.println(p1.getName() + " has won the war!!");
         } else if (p2.getRoundWinCount() > p1.getRoundWinCount()) {
-            System.out.println(p2.getName() + " Wins the Game!!");
+            System.out.println(p2.getName() + " has won the war!!");
         }
     }
 
@@ -315,7 +323,7 @@ public class WarCardGame extends Game {
     public void incrementRoundWon() {
 
         if (!p1.isForfeit() && !p2.isForfeit()) {
-            System.out.println("\nThis battle is over.");
+            System.out.println("\nThis round of battle is over.");
             if (p1.getWinList().getSize() > p2.getWinList().getSize()) {
                 p1.setRoundWinCount(p1.getRoundWinCount() + 1);
                 System.out.printf("%s: %d vs. %s: %d\n", p1.getName(),
