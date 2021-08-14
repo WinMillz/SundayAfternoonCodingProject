@@ -15,7 +15,6 @@ public class WarCardGame extends Game {
     private WarPlayer p2;
     private boolean playNewGame = false;
     private Scanner input = new Scanner(System.in);
-    private WarAsciiArt art = new WarAsciiArt();
 
     /**
      * @param args the command line arguments
@@ -44,12 +43,12 @@ public class WarCardGame extends Game {
      */
     @Override
     public void play() {
+        
+        WarAsciiArt.displayGameStart();
 
         System.out.println("Welcome to War. Two players are required.\n"
-                + "There will be five total rounds.\n First player to get three wins"
+                + "There will be five total rounds.\nFirst player to get three wins "
                 + "will be crowned as the CHAMPION!");
-        
-        art.displayGameStart();
 
         //prompt players for names
         String p1Name = "Player 1";
@@ -138,29 +137,32 @@ public class WarCardGame extends Game {
         String playerInput = "";
 
         //prompt player to select option
-        for (Player current : getPlayers()) {
+        for (int i = 0; i < getPlayers().size(); i++) {
+            if (p1.isForfeit() || p2.isForfeit())
+                break;
             while (true) {
-                System.out.println("\n" + current.getName() + "'s turn");
+                System.out.println("\n" + getPlayers().get(i).getName() + "'s turn");
                 showInstructions();
                 playerInput = input.nextLine();
                 if (playerInput.equals("c")) {
-                    System.out.println(current.getName() + " currently has "
-                            + ((WarPlayer) current).getInHand().getSize()
+                    System.out.println(getPlayers().get(i).getName() + " currently has "
+                            + ((WarPlayer)getPlayers().get(i)).getInHand().getSize()
                             + " cards left and "
-                            + ((WarPlayer) current).getWinList().getSize()
+                            + ((WarPlayer)getPlayers().get(i)).getWinList().getSize()
                             + " cards in their Win Pile");
                 } else if (playerInput.equals("p")) {
-                    ((WarPlayer) current).play();
+                    ((WarPlayer)getPlayers().get(i)).play();
                     break;
                 } else if (playerInput.equals("t")) {
-                    ((WarPlayer) current).setForfeit(true);
-                    System.out.println(((WarPlayer) current).getName()
-                            + " forfeits!");
+                    ((WarPlayer)getPlayers().get(i)).setForfeit(true);
+                    System.out.println(((WarPlayer)getPlayers().get(i)).getName() + 
+                            " forfeits!");
                     break;
                 } else {
                     System.out.println("Please enter valid input command");
                 }
-            }
+        }
+
         }
 
         //assess winner of turn
@@ -172,7 +174,7 @@ public class WarCardGame extends Game {
                 compareCard = compareCards(p1, p2);
                 shouldPlayWar = determinePlayWar(compareCard);
                 if (shouldPlayWar) {
-                    art.displayWar();
+                    WarAsciiArt.displayWar();
                     //System.out.println("\nIt's War!!");
                     p1.playWar();
                     p2.playWar();
