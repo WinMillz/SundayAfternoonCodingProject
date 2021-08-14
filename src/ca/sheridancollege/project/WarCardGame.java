@@ -81,7 +81,6 @@ public class WarCardGame extends Game {
                 playRound();
                 incrementRoundWon();
 
-                //System.out.println("\n\nReady for the next round?");
             }
 
         }
@@ -183,7 +182,6 @@ public class WarCardGame extends Game {
                 shouldPlayWar = determinePlayWar(compareCard);
                 if (shouldPlayWar) {
                     WarAsciiArt.displayWar();
-                    //System.out.println("\nIt's War!!");
                     p1.playWar();
                     p2.playWar();
                 } else if (compareCard == 1) {
