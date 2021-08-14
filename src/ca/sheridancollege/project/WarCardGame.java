@@ -15,6 +15,7 @@ public class WarCardGame extends Game {
     private WarPlayer p2;
     private boolean playNewGame = false;
     private Scanner input = new Scanner(System.in);
+    private WarAsciiArt art = new WarAsciiArt();
 
     /**
      * @param args the command line arguments
@@ -44,7 +45,8 @@ public class WarCardGame extends Game {
     @Override
     public void play() {
 
-        System.out.println("Welcome to War");
+        //System.out.println("Welcome to War");
+        art.displayGameStart();
 
         //prompt players for names
         String p1Name = "Player 1";
@@ -74,6 +76,8 @@ public class WarCardGame extends Game {
             } else {
                 playRound();
                 incrementRoundWon();
+                
+                //System.out.println("\n\nReady for the next round?");
             }
 
         }
@@ -159,12 +163,14 @@ public class WarCardGame extends Game {
         //assess winner of turn
         int compareCard;
         boolean shouldPlayWar = false;
+        
         if (!p1.isForfeit() && !p2.isForfeit()) {
             do {
                 compareCard = compareCards(p1, p2);
                 shouldPlayWar = determinePlayWar(compareCard);
                 if (shouldPlayWar) {
-                    System.out.println("It's War!!");
+                    art.displayWar();
+                    //System.out.println("\nIt's War!!");
                     p1.playWar();
                     p2.playWar();
                 } else if (compareCard == 1) {
