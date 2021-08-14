@@ -48,7 +48,7 @@ public class WarCardGame extends Game {
 
         System.out.println("Welcome to War. Two players are required.\n"
                 + "There will be five total rounds.\nFirst player to get three"
-                + "wins will be crowned as the CHAMPION!");
+                + " wins will be crowned as the CHAMPION!");
 
         //prompt players for names
         String p1Name = "Player 1";
@@ -188,6 +188,9 @@ public class WarCardGame extends Game {
                 } else {
                     System.out.println(p2.getName() + " wins the turn!");
                 }
+                System.out.println("[" + p1.getName() + " cards won: " + 
+                        p1.getWinList().getSize() + "][ " + p2.getName() + 
+                        " cards won: " + p2.getWinList().getSize() + "]");
             } while (shouldPlayWar);
         }
     }
@@ -309,6 +312,7 @@ public class WarCardGame extends Game {
     public void incrementRoundWon() {
 
         if (!p1.isForfeit() && !p2.isForfeit()) {
+            System.out.println("\nThis battle is over.");
             if (p1.getWinList().getSize() > p2.getWinList().getSize()) {
                 p1.setRoundWinCount(p1.getRoundWinCount() + 1);
                 System.out.printf("%s: %d vs. %s: %d", p1.getName(), 
@@ -320,7 +324,7 @@ public class WarCardGame extends Game {
                         p1.getRoundWinCount(),
                         p2.getName(), p2.getRoundWinCount());
             } else {
-                System.out.println("This round is tie.");
+                System.out.println("\nThere are no winners in this battle.");
             }
         }
     }

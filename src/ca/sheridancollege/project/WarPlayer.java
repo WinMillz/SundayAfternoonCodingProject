@@ -86,16 +86,20 @@ public class WarPlayer extends Player {
      */
     public void playWar() {
 
-        if (inHand.getSize() > 3) {
-            // to play War, player needs at least 4 cards inHand
-            for (int i = 0; i < 4; i++) {
-                activeDeck.getCards().add(inHand.getCards().remove(0));
-            }
-        } else if (inHand.getSize() <= 3 && inHand.getSize() > 0) {
-            // If inHand is less than 4, add all remaining cards to activeDeck
-            while (inHand.getSize() > 0) {
-                activeDeck.getCards().add(inHand.getCards().remove(0));
-            }
+        if (inHand.getSize() > 0) {
+            if (inHand.getSize() > 3) {
+                // to play War, player needs at least 4 cards inHand
+                for (int i = 0; i < 4; i++) {
+                    activeDeck.getCards().add(inHand.getCards().remove(0));
+                }
+            } else {
+                // If inHand is < 4, add all remaining cards to activeDeck
+                while (inHand.getSize() > 0) {
+                    activeDeck.getCards().add(inHand.getCards().remove(0));
+                }
+            } 
+            System.out.print(getName() + " dealt " + 
+                    activeDeck.getCards().get(activeDeck.getSize()-1));
         } else {
             // If inHand is 0, add activeDeck to winList
             while (activeDeck.getSize() > 0) {
@@ -103,8 +107,6 @@ public class WarPlayer extends Player {
             }
         }
 
-        System.out.print(getName() + " dealt " + 
-                activeDeck.getCards().get(activeDeck.getSize()-1));
         System.out.println(" [cards remaining: " + inHand.getSize() + "]");
     }
 
