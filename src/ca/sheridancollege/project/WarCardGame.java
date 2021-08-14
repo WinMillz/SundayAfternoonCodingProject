@@ -28,31 +28,6 @@ public class WarCardGame extends Game {
             warGame.play();
         } while (warGame.getPlayNewGame());
 
-//        // **REMOVE** Checking that cards were distributed
-//        System.out.println("Player 1: " + player1.getName() + ", # of cards inHand : "
-//                + player1.getInHand().getSize() + "\nCards: " + player1.getInHand().getCards()); //remove
-//        System.out.println("Player 2: " + player2.getName() + ", # of cards inHand : "
-//                + player2.getInHand().getSize() + "\nCards: " + player2.getInHand().getCards()); //remove
-//
-//        // **REPLACE** With play() method
-//        player1.getActiveDeck().getCards().add(player1.getInHand().getCards().remove(0));
-//        player2.getActiveDeck().getCards().add(player1.getInHand().getCards().remove(0));
-//
-//        // **REMOVE** Test checking values in activeDeck 
-//        System.out.println("P1 activeDeck: " + player1.getActiveDeck().getCards()); //remove
-//        System.out.println("P2 activeDeck: " + player2.getActiveDeck().getCards()); //remove
-//
-//        int compareCard = warGame.compareCards(player1, player2);
-//        System.out.println("Result of compare cards: " + compareCard); //remove
-//
-//        boolean shouldPlayWar = warGame.determinePlayWar(compareCard);
-//        System.out.println("Should play war: " + shouldPlayWar); //remove
-//
-//        // **REMOVE** Test checking values in activeDeck and winList 
-//        System.out.println("P1 activeDeck: " + player1.getActiveDeck().getCards()); //remove
-//        System.out.println("P2 activeDeck: " + player2.getActiveDeck().getCards()); //remove
-//        System.out.println("P1 winList: " + player1.getWinList().getCards()); //remove
-//        System.out.println("P2 winList: " + player2.getWinList().getCards()); //remove
     }
 
     public WarCardGame(String name, WarPlayer p1, WarPlayer p2) {
@@ -62,7 +37,7 @@ public class WarCardGame extends Game {
         getPlayers().add(p1);
         getPlayers().add(p2);
     }
-    
+
     /**
      * This method models 1 full game of play
      */
@@ -85,11 +60,11 @@ public class WarCardGame extends Game {
                         + "re-enter.");
             }
         } while (p1Name.equalsIgnoreCase(p2Name));
-        
+
         //register player names
         p1.setName(p1Name);
         p2.setName(p2Name);
-        
+
         //continue to play rounds until end game condition is reached
         while (p1.getRoundWinCount() < 3 && p2.getRoundWinCount() < 3) {
             if (p1.isForfeit()) {
@@ -102,10 +77,10 @@ public class WarCardGame extends Game {
             }
 
         }
-        
+
         //declare winner of most recent game
         declareWinner();
-        
+
         //prompt player for another game and reset values
         String newGame;
         do {
@@ -116,49 +91,49 @@ public class WarCardGame extends Game {
                 playNewGame = true;
                 p1.setForfeit(false);
                 p2.setForfeit(false);
-                
+
                 p1.setRoundWinCount(0);
                 p2.setRoundWinCount(0);
-                
+
             } else if (newGame.equalsIgnoreCase("E")) {
                 playNewGame = false;
                 System.out.println("Thanks for playing!");
             }
         } while (!newGame.equalsIgnoreCase("Y") && !newGame.equalsIgnoreCase("E"));
     }
-    
+
     /**
      * This method 1 round of play
      */
     public void playRound() {
-        
+
         //clear win pile for each player and distribute cards
         p1.getWinList().getCards().clear();
-        p1.getWinList().getCards().clear();        
+        p2.getWinList().getCards().clear();
         distributeCards(p1, p2);
-        
+
         //play turns until hand of players reaches 0 or player forfeits
         while (p1.getInHand().getSize() > 0 && p2.getInHand().getSize() > 0) {
 
             if (!p1.isForfeit() && !p2.isForfeit()) {
-                playTurn();                
+                playTurn();
             } else {
                 p1.getInHand().getCards().clear();
                 p2.getInHand().getCards().clear();
             }
         }
     }
-    
+
     /**
      * This method models one turn of play
      */
     public void playTurn() {
         String playerInput = "";
-        
+
         //prompt player to select option
         for (Player current : getPlayers()) {
             while (true) {
-                System.out.println("\n" +current.getName() + "'s turn");
+                System.out.println("\n" + current.getName() + "'s turn");
                 showInstructions();
                 playerInput = input.nextLine();
                 if (playerInput.equals("c")) {
@@ -172,15 +147,15 @@ public class WarCardGame extends Game {
                     break;
                 } else if (playerInput.equals("t")) {
                     ((WarPlayer) current).setForfeit(true);
-                    System.out.println(((WarPlayer) current).getName() + 
-                            " forfeits!");
+                    System.out.println(((WarPlayer) current).getName()
+                            + " forfeits!");
                     break;
                 } else {
                     System.out.println("Please enter valid input command");
                 }
-            } 
+            }
         }
-        
+
         //assess winner of turn
         int compareCard;
         boolean shouldPlayWar = false;
@@ -204,11 +179,11 @@ public class WarCardGame extends Game {
     /**
      * This method distributes cards to players at the start of the game.
      *
-     * @param player1
-     * @param player2
+     * @param p1
+     * @param p2
      */
-    public void distributeCards(WarPlayer player1, WarPlayer player2) {
-        
+    public void distributeCards(WarPlayer p1, WarPlayer p2) {
+
         // Create group of cards from enum Deck
         GroupOfCards initialDeck = new GroupOfCards();
         for (int i = 0; i < Deck.values().length; i++) {
@@ -221,8 +196,8 @@ public class WarCardGame extends Game {
         if (initialDeck.getSize() > 0) {
 
             for (int i = 0; i < Deck.values().length / 2; i++) {
-                player1.getInHand().getCards().add(initialDeck.getCards().remove(0));
-                player2.getInHand().getCards().add(initialDeck.getCards().remove(0));
+                p1.getInHand().getCards().add(initialDeck.getCards().remove(0));
+                p2.getInHand().getCards().add(initialDeck.getCards().remove(0));
             }
 
         }
@@ -233,46 +208,46 @@ public class WarCardGame extends Game {
      * This method takes the last card in player1 and player2's activeDeck and
      * compares the two card values.
      *
-     * @param player1
-     * @param player2
+     * @param p1
+     * @param p2
      * @return 1 if player1's card is higher value; 2 if player2's card value is
      * higher; 0 if value is equal.
      */
-    public int compareCards(WarPlayer player1, WarPlayer player2) {
+    public int compareCards(WarPlayer p1, WarPlayer p2) {
         int compareCard = 0;
 
         // Get the value of the last card in player 1 and player 2's active decks
-        int player1CardValue = player1.getActiveDeck().getCards().get(
-                player1.getActiveDeck().getSize() - 1).getValue();
-        int player2CardValue = player2.getActiveDeck().getCards().get(
-                player2.getActiveDeck().getSize() - 1).getValue();
+        int p1CardValue = p1.getActiveDeck().getCards().get(
+                p1.getActiveDeck().getSize() - 1).getValue();
+        int p2CardValue = p2.getActiveDeck().getCards().get(
+                p2.getActiveDeck().getSize() - 1).getValue();
 
-        if (player1CardValue > player2CardValue) {
+        if (p1CardValue > p2CardValue) {
 
             // Player 1 has the higher value card
             // Remove cards from activeDecks and add to player 1 winList
-            while (player1.getActiveDeck().getSize() > 0) {
-                player1.getWinList().getCards().add(
-                        player1.getActiveDeck().getCards().remove(0));
+            while (p1.getActiveDeck().getSize() > 0) {
+                p1.getWinList().getCards().add(
+                        p1.getActiveDeck().getCards().remove(0));
             }
-            while (player2.getActiveDeck().getSize() > 0) {
-                player1.getWinList().getCards().add(
-                        player2.getActiveDeck().getCards().remove(0));
+            while (p2.getActiveDeck().getSize() > 0) {
+                p1.getWinList().getCards().add(
+                        p2.getActiveDeck().getCards().remove(0));
             }
 
             compareCard = 1;
 
-        } else if (player1CardValue < player2CardValue) {
+        } else if (p1CardValue < p2CardValue) {
 
             // Player 2 has the higher value card
             // Remove cards from activeDecks and add to player 2 winList
-            while (player1.getActiveDeck().getSize() > 0) {
-                player2.getWinList().getCards().add(
-                        player1.getActiveDeck().getCards().remove(0));
+            while (p1.getActiveDeck().getSize() > 0) {
+                p2.getWinList().getCards().add(
+                        p1.getActiveDeck().getCards().remove(0));
             }
-            while (player2.getActiveDeck().getSize() > 0) {
-                player2.getWinList().getCards().add(
-                        player2.getActiveDeck().getCards().remove(0));
+            while (p2.getActiveDeck().getSize() > 0) {
+                p2.getWinList().getCards().add(
+                        p2.getActiveDeck().getCards().remove(0));
             }
 
             compareCard = 2;
@@ -298,7 +273,7 @@ public class WarCardGame extends Game {
         }
 
     }
-    
+
     /**
      * This method determines the winner based on rounds won
      */
@@ -310,7 +285,7 @@ public class WarCardGame extends Game {
             System.out.println(p2.getName() + " Wins the Game!!");
         }
     }
-    
+
     /**
      * This method determines which player has won the most recent round and
      * increments the RoundWinCount datamember for the WarPlayer
@@ -331,7 +306,7 @@ public class WarCardGame extends Game {
             }
         }
     }
-    
+
     /**
      * This method displays the options available to the player
      */
