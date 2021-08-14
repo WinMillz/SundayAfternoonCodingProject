@@ -44,12 +44,12 @@ public class WarCardGame extends Game {
      */
     @Override
     public void play() {
-
-        System.out.println("Welcome to War. Two players are required.\n"
-                + "There will be five total rounds.\n First player to get three wins"
-                + "will be crowned as the CHAMPION!");
         
         art.displayGameStart();
+        
+        System.out.println("Welcome to War. Two players are required.\n"
+               + "There will be five total rounds.\n First player to get three wins"
+               + "will be crowned as the CHAMPION!");
 
         //prompt players for names
         String p1Name = "Player 1";
