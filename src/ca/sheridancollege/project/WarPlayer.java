@@ -93,12 +93,12 @@ public class WarPlayer extends Player {
             }
         } else if (inHand.getSize() <= 3 && inHand.getSize() > 0) {
             // If inHand is less than 4, add all remaining cards to activeDeck
-            while (inHand.getSize() >= 0) {
+            while (inHand.getSize() > 0) {
                 activeDeck.getCards().add(inHand.getCards().remove(0));
             }
         } else {
             // If inHand is 0, add activeDeck to winList
-            while (activeDeck.getSize() >= 0) {
+            while (activeDeck.getSize() > 0) {
                 winList.getCards().add(activeDeck.getCards().remove(0));
             }
         }
