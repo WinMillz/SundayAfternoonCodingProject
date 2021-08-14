@@ -100,8 +100,6 @@ public class WarPlayer extends Player {
             } 
             System.out.print(getName() + " dealt " + 
                     activeDeck.getCards().get(activeDeck.getSize()-1));
-            System.out.println(" [cards remaining: " + inHand.getSize() + "]");
-            
         } else {
             // If inHand is 0, add activeDeck to winList
             while (activeDeck.getSize() > 0) {
@@ -109,6 +107,7 @@ public class WarPlayer extends Player {
             }
         }
 
+        System.out.println(" [cards remaining: " + inHand.getSize() + "]");
     }
 
     /**

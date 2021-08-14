@@ -198,12 +198,10 @@ public class WarCardGame extends Game {
                 } else {
                     System.out.println(p2.getName() + " wins the turn!");
                 }
-                
+                System.out.println("[" + p1.getName() + " cards won: " + 
+                        p1.getWinList().getSize() + "][ " + p2.getName() + 
+                        " cards won: " + p2.getWinList().getSize() + "]");
             } while (shouldPlayWar);
-            
-            System.out.println("[" + p1.getName() + " has won " + 
-                        p1.getWinList().getSize() + " cards] [" + p2.getName() + 
-                        " has won " + p2.getWinList().getSize() + " cards]");
         }
     }
 
@@ -296,15 +294,11 @@ public class WarCardGame extends Game {
      */
     public boolean determinePlayWar(int compareCard) {
 
-        if (p1.getInHand().getSize() > 0) {
-            switch (compareCard) {
-                case 0:
-                    return true;
-                default:
-                    return false;
-            }
-        } else {
-            return false;
+        switch (compareCard) {
+            case 0:
+                return true;
+            default:
+                return false;
         }
 
     }
@@ -315,9 +309,9 @@ public class WarCardGame extends Game {
     @Override
     public void declareWinner() {
         if (p1.getRoundWinCount() > p2.getRoundWinCount()) {
-            System.out.println(p1.getName() + " has won the war!!");
+            System.out.println(p1.getName() + " Wins the Game!!");
         } else if (p2.getRoundWinCount() > p1.getRoundWinCount()) {
-            System.out.println(p2.getName() + " has won the war!!");
+            System.out.println(p2.getName() + " Wins the Game!!");
         }
     }
 
@@ -328,7 +322,7 @@ public class WarCardGame extends Game {
     public void incrementRoundWon() {
 
         if (!p1.isForfeit() && !p2.isForfeit()) {
-            System.out.println("\nThis round of battle is over.");
+            System.out.println("\nThis battle is over.");
             if (p1.getWinList().getSize() > p2.getWinList().getSize()) {
                 p1.setRoundWinCount(p1.getRoundWinCount() + 1);
                 System.out.printf("%s: %d vs. %s: %d\n", p1.getName(), 
