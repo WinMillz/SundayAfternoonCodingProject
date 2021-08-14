@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /** 
  * This class models the console card game based on the War card game. 
- * The program will continue  until players has no cards 
+ * The program will continue  until players have no cards 
  * in hand. Also, players can forfeit at any point.
  * The player who wins 3 times first will win the game, and prompt
  * user input to ask start new game. 
@@ -56,8 +56,8 @@ public class WarCardGame extends Game {
                 + " wins will be crowned as the CHAMPION!");
 
         //prompt players for names
-        String p1Name = "Player 1";
-        String p2Name = "Player 2";
+        String p1Name = p1.getName();
+        String p2Name = p2.getName();
         do {
             System.out.print("Enter Name for Player 1: ");
             p1Name = input.nextLine();
