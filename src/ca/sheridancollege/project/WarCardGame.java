@@ -55,9 +55,17 @@ public class WarCardGame extends Game {
         String p2Name = "Player 2";
         do {
             System.out.print("Enter Name for Player 1: ");
-            p1Name = input.nextLine();
+            if ("".equals(input.nextLine())) {
+                p1Name = "Player 1";
+            } else {
+                p1Name = input.nextLine();
+            }
             System.out.print("Enter name for Player 2: ");
-            p2Name = input.nextLine();
+            if ("".equals(input.nextLine())) {
+                p2Name = "Player 2";
+            } else {
+                p2Name = input.nextLine();
+            }          
 
             if (p1Name.equalsIgnoreCase(p2Name)) {
                 System.out.println("Players must have unique names, please "
