@@ -74,9 +74,11 @@ public class WarCardGame extends Game {
         } while (p1Name.equalsIgnoreCase(p2Name));
 
         //register player names
-        p1.setName(p1Name);
-        p2.setName(p2Name);
-
+        if (!p1Name.equals(""))
+            p1.setName(p1Name);
+        if (!p2Name.equals(""))
+            p2.setName(p2Name);
+            
         //continue to play rounds until end game condition is reached
         while (p1.getRoundWinCount() < 3 && p2.getRoundWinCount() < 3) {
             if (p1.isForfeit()) {
