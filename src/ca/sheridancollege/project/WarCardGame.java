@@ -315,12 +315,12 @@ public class WarCardGame extends Game {
             System.out.println("\nThis battle is over.");
             if (p1.getWinList().getSize() > p2.getWinList().getSize()) {
                 p1.setRoundWinCount(p1.getRoundWinCount() + 1);
-                System.out.printf("%s: %d vs. %s: %d", p1.getName(), 
+                System.out.printf("%s: %d vs. %s: %d\n", p1.getName(), 
                         p1.getRoundWinCount(),
                         p2.getName(), p2.getRoundWinCount());
             } else if (p1.getWinList().getSize() < p2.getWinList().getSize()) {
                 p2.setRoundWinCount(p2.getRoundWinCount() + 1);
-                System.out.printf("%s: %d vs. %s: %d", p1.getName(), 
+                System.out.printf("%s: %d vs. %s: %d\n", p1.getName(), 
                         p1.getRoundWinCount(),
                         p2.getName(), p2.getRoundWinCount());
             } else {
