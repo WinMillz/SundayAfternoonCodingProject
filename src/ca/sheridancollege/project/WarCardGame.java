@@ -43,7 +43,7 @@ public class WarCardGame extends Game {
      */
     @Override
     public void play() {
-        
+
         WarAsciiArt.displayGameStart();
 
         System.out.println("Welcome to War. Two players are required.\n"
