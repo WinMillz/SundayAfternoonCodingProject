@@ -2,7 +2,12 @@ package ca.sheridancollege.project;
 
 import java.util.Scanner;
 
-/**
+/** 
+ * This class models the console card game based on the War card game. 
+ * The program will continue  until players has no cards 
+ * in hand. Also, players can forfeit at any point.
+ * The player who wins 3 times first will win the game, and prompt
+ * user input to ask start new game. 
  *
  * @author Jinyoung (Kayla) Jeon August 2021
  * @author Juyoung (Jenny) Jung August 2021
