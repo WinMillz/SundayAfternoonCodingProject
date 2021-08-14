@@ -103,7 +103,7 @@ public class WarCardGame extends Game {
 
             } else if (newGame.equalsIgnoreCase("E")) {
                 playNewGame = false;
-                System.out.println("Thanks for playing!");
+                WarAsciiArt.displayGameEnd();
             }
         } while (!newGame.equalsIgnoreCase("Y") 
                  && !newGame.equalsIgnoreCase("E"));
