@@ -45,7 +45,10 @@ public class WarCardGame extends Game {
     @Override
     public void play() {
 
-        //System.out.println("Welcome to War");
+        System.out.println("Welcome to War. Two players are required.\n"
+                + "There will be five total rounds.\n First player to get three wins"
+                + "will be crowned as the CHAMPION!");
+        
         art.displayGameStart();
 
         //prompt players for names
@@ -76,7 +79,7 @@ public class WarCardGame extends Game {
             } else {
                 playRound();
                 incrementRoundWon();
-                
+
                 //System.out.println("\n\nReady for the next round?");
             }
 
@@ -163,7 +166,7 @@ public class WarCardGame extends Game {
         //assess winner of turn
         int compareCard;
         boolean shouldPlayWar = false;
-        
+
         if (!p1.isForfeit() && !p2.isForfeit()) {
             do {
                 compareCard = compareCards(p1, p2);
